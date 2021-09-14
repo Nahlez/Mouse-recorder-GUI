@@ -1,4 +1,5 @@
 import pyautogui, time,random,keyboard
+
 clicks_guardados = []
 
 while True:
@@ -27,8 +28,15 @@ def replace_and_add_item(items,old1,new1,old2,new2,old3,new3):
 for i in clicks_guardados:
     replace_and_add_item(str(i),'Point','','x=','','y=','')
 
-new_list = str(new_list)
-new_list = new_list.replace("'","")
+clicks = str(new_list).replace("'", "")
+print('Se ha procesado la lista satisfactoriamente')
+decision = input('¿Deseas guardarla ? press y/n')
+
+if decision == 'y':
+    file_name = input('Choose the filename: ')+'.txt'
+    file_clicks = open(file_name,'w+')
+    file_clicks.write(clicks)
+    file_clicks.close()
 print(new_list)
 
 input()
