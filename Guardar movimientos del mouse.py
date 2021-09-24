@@ -4,26 +4,39 @@ import keyboard as key2
 from pynput import mouse
 
 
+import time  
+
+
 clicks_guardados = []
+time_each_click = [3,]
+time_between_clicks = []
+tiempo_list = []
 
 
 
+new_list = []
+def replace_and_add_item(items,old1,new1,old2,new2,old3,new3):
+    new_item = items.replace(old1, new1)
+    new_item = new_item.replace(old2, new2)
+    new_item = new_item.replace(old3, new3)
+    new_list.append(new_item)
+
+# Con esta funcion detectamos y guardamos los clicks del mouse.
 def on_click(x, y, button, pressed):
 
+    # Si ponemos el mouse en la esquina superior de la pantalla el loop termina.
     if pressed:
         if str(pyautogui.position()) == 'Point(x=0, y=0)':
             n = False
-            return n
-            
-            
-            
-            
+            return n         
         
     if not pressed:
         return False
     else:
         time.sleep(0.1)
         clicks_guardados.append(pyautogui.position())
+        tiempo_list.append(time.time())
+        print(tiempo_list)
         print(pyautogui.position())
         print('se guardo un click')
         print(clicks_guardados)
@@ -38,7 +51,13 @@ while n == True:
         n = False
     
     
+diff_list = []
+for i in range(1,len(tiempo_list)):
+    if tiempo_list[i] != tiempo_list[0]:
+        x = tiempo_list[i] - tiempo_list[i-1]
+        diff_list.append(x)
 
+print(diff_list)
 
 #while True:
        #elif keyboard.is_pressed('x'):
@@ -49,13 +68,7 @@ while n == True:
     #else:
         #continue
 
-new_list = []
-#Delete Unwished characters from first list.
-def replace_and_add_item(items,old1,new1,old2,new2,old3,new3):
-    new_item = items.replace(old1, new1)
-    new_item = new_item.replace(old2, new2)
-    new_item = new_item.replace(old3, new3)
-    new_list.append(new_item)
+
 for i in clicks_guardados:
     replace_and_add_item(str(i),'Point','','x=','','y=','')
 
