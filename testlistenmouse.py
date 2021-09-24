@@ -1,18 +1,31 @@
+import pyautogui, time,random
 from pynput.mouse import Listener
-import logging,time
+import keyboard as key2
 
-logging.basicConfig(filename="mouse_log.txt", level=logging.DEBUG, format='%(asctime)s: %(message)s')
 
-def on_move(x, y):
-    logging.info("Mouse moved to ({0}, {1})".format(x, y))
+clicks_guardados = []
+
+
 
 def on_click(x, y, button, pressed):
+
     if pressed:
-        logging.info('Mouse clicked at ({0}, {1}) with {2}'.format(x, y, button))
-
-def on_scroll(x, y, dx, dy):
-    logging.info('Mouse scrolled at ({0}, {1})({2}, {3})'.format(x, y, dx, dy))
-
-while True:
-    with Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll) as listener:
+        time.sleep(0.1)
+        clicks_guardados.append(pyautogui.position())
+        print(pyautogui.position())
+        print('se guardo un click')
+        print(clicks_guardados)
+    if not pressed:
+        return False
+  
+    
+    
+n = True        
+while n == True:
+    with Listener(on_click=on_click) as listener:
         listener.join()
+
+    if str(pyautogui.position()) == 'Point(x=0, y=0)':
+        n = False
+    
+    

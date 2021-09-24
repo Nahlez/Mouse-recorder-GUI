@@ -1,7 +1,8 @@
 import pyautogui, time,random
 from pynput.mouse import Listener
-from pynput import keyboard
 import keyboard as key2
+from pynput import mouse
+
 
 clicks_guardados = []
 
@@ -10,35 +11,43 @@ clicks_guardados = []
 def on_click(x, y, button, pressed):
 
     if pressed:
+        if str(pyautogui.position()) == 'Point(x=0, y=0)':
+            n = False
+            return n
+            
+            
+            
+            
+        
+    if not pressed:
+        return False
+    else:
         time.sleep(0.1)
         clicks_guardados.append(pyautogui.position())
+        print(pyautogui.position())
         print('se guardo un click')
         print(clicks_guardados)
-    elif key2.wait('f'):
-        return False
-        
     
     
-        
+n = True        
+while n == True:
+    with Listener(on_click=on_click) as listener:
+        listener.join()
 
-with Listener(on_click=on_click) as listener:
-    listener.join()
+    if str(pyautogui.position()) == 'Point(x=0, y=0)':
+        n = False
+    
+    
 
 
-while True:
-    print('hola')
-    if keyboard.is_pressed('c'):
-        pass
-    elif keyboard.is_pressed('f'):
-        break
-
-    #elif keyboard.is_pressed('x'):
+#while True:
+       #elif keyboard.is_pressed('x'):
         #mensaje = ' aca va algo del teclado'
         #clicks_guardados.append(str(pyautogui.position())+mensaje)
         #print(mensaje)
         #time.sleep(0.5)
-    else:
-        continue
+    #else:
+        #continue
 
 new_list = []
 #Delete Unwished characters from first list.
