@@ -2,7 +2,6 @@ import pyautogui
 from pynput.mouse import Listener
 import keyboard as key2
 from pynput import mouse
-# Fijarse si discrimina entre click derecho e izquierdo
 import time  
 
 clicks_guardados = []
