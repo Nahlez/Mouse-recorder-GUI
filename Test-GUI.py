@@ -4,8 +4,7 @@ import os
 import pyautogui
 import time
 import keyboard
-
-
+import Savemousemovements as savemouse
 
 root = Tk()
 
@@ -34,11 +33,8 @@ def macro_play():
 
 button = Button(root, text='Open file', command=open_json).pack()
 button_run = Button(root, text='Run', command=macro_play).pack()
+button_savemouse = Button(root, text='Generate Macro', command=savemouse.main).pack()
 
-
-
-
-    
 
 # Here starts the script "Macro play test".
 
