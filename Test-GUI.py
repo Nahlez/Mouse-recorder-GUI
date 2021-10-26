@@ -1,24 +1,24 @@
 from tkinter import *
 from tkinter import filedialog
+from tkinter import messagebox
 import os
 import pyautogui
 import time
 import keyboard
 import Savemousemovements as savemouse
 
-root = Tk()
-
-root.geometry('300x300')
-
 
 
 def open_json():
-    json_instructions = filedialog.askopenfilename(initialdir=os.getcwd(), filetypes=(("Json File", "*.json"), ("All Files", "*.*")),
+    json_instructions = filedialog.askopenfilename(initialdir=os.getcwd(), filetypes=(("Json File", "*.json"),),
                            title="Choose a file.")
-    json_instructions = open(json_instructions,'r')
-    lines = json_instructions.readlines()
-    open_json.clicks_coordenates = eval(lines[0])
-    open_json.time_clicks = eval(lines[1])
+    if json_instructions == "":
+        pass
+    else:
+        json_instructions = open(json_instructions,'r')
+        lines = json_instructions.readlines()
+        open_json.clicks_coordenates = eval(lines[0])
+        open_json.time_clicks = eval(lines[1])
 
 def macro_play():
     saved_clicks = open_json.clicks_coordenates
@@ -31,12 +31,17 @@ def macro_play():
         index += 1 
         pyautogui.click(i)
 
+root = Tk()
+
+root.geometry('400x200')
+root.title('Macro recorder')
+
+
 button = Button(root, text='Open file', command=open_json).pack()
 button_run = Button(root, text='Run', command=macro_play).pack()
-button_savemouse = Button(root, text='Generate Macro', command=savemouse.main).pack()
+button_generatemacro = Button(root, text='Generate Macro', command=savemouse.main).pack()
+button_savemacro = Button(root, text='Save Macro', command= savemouse.save_lists).pack()
 
-
-# Here starts the script "Macro play test".
 
 
 
