@@ -11,7 +11,6 @@ tiempo_list = []
 diff_list = []
 new_list = []
 
-
 # With this function we clean the output string from Pyautogui.
 def replace_and_add_item(items,old1,new1,old2,new2,old3,new3):
     new_item = items.replace(old1, new1)
