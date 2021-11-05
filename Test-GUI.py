@@ -4,14 +4,17 @@ from tkinter import messagebox
 import os
 import pyautogui
 import time
-import Savemousemovements as savemouse
+import Save_mouse_movements as savemouse
+
 
 def succesfully_message():
-    messagebox.showinfo('Info','The list has been proccessed succesfully')
+    messagebox.showinfo('Info', 'The list has been proccessed succesfully')
+
 
 def save_file_dialog():
     clicks = str(savemouse.new_list).replace("'", "")
-    file_name = filedialog.asksaveasfile(initialdir=os.getcwd(), filetypes=(("Json File", "*.json"),),
+    file_name = filedialog.asksaveasfile(initialdir=os.getcwd(),
+                filetypes=(("Json File", "*.json"),),
                             defaultextension=".json",
                            title="Choose a file.")
     if file_name == None:
@@ -34,6 +37,7 @@ def open_json():
         open_json.clicks_coordenates = eval(lines[0])
         open_json.time_clicks = eval(lines[1])
 
+
 def macro_play():
     saved_clicks = open_json.clicks_coordenates
     time_between_clicks = open_json.time_clicks
@@ -49,14 +53,16 @@ def macro_play():
 
 #---------------GUI starts-----------------------------------------------
 root = Tk()
-root.geometry('350x200')
+root.geometry('300x200')
+root.resizable(False, False)
 root.title('Macro recorder')
 
-button = Button(root, text='Open file', command=open_json).place(x=60,y=50)
-button_run = Button(root, text='Run', command=macro_play).place(x=60,y=90)
-button_generatemacro = Button(root, text='Generate Macro', command=lambda:[savemouse.main(),succesfully_message()]).place(x=140,y=50)
+button = Button(root, text='Open file', command=open_json, width=12).place(x=155,y=50)
+button_run = Button(root, text='Run', command=macro_play,width=12).place(x=155,y=90)
+button_generatemacro = Button(root, text='Record Macro', 
+                       command=lambda:[savemouse.main(),succesfully_message()],width=12).place(x=40,y=50) 
 #button_savemacro = Button(root, text='Save Macro', command= savemouse.save_lists).place(x=140,y=90)
-button_savemacro = Button(root, text='Save Macro', command= save_file_dialog).place(x=140,y=90)
+button_savemacro = Button(root, text='Save file', command= save_file_dialog,width=12).place(x=40,y=90) 
 
 
 root.mainloop()
