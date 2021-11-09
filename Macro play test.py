@@ -2,8 +2,8 @@ import pyautogui
 import time
 import keyboard
 
-saved_clicks =  # Paste here the first list in the JSON File.
-time_between_clicks =  # Paste here the second list in the JSON File.
+saved_clicks =[]  # Paste here the first list in the JSON File.
+time_between_clicks =[]  # Paste here the second list in the JSON File.
 index = 0
 for i in saved_clicks:
     # You can select the seconds between the clicks
