@@ -33,14 +33,14 @@ def save_file_dialog():
 #This function opens the file with the coordenates.
 def open_json():
 
-    json_instructions = filedialog.askopenfilename(initialdir=os.getcwd(), filetypes=(("Json file", "*.json"),),
-                           title="Choose a file.")
+    json_instructions = filedialog.askopenfilename(initialdir=os.getcwd(),
+                         filetypes=(("Json file", "*.json"),),
+                         title="Choose a file.")
 
     if json_instructions == "":
         pass
     else:
-        my_label.config(text=json_instructions + ' is open')
-        print(my_label)
+        show_open_file.config(text=os.path.basename(json_instructions))
         json_instructions_read = open(json_instructions,'r')
         lines = json_instructions_read.readlines()
         open_json.clicks_coordenates = eval(lines[0])
@@ -69,15 +69,19 @@ root.geometry('300x200')
 root.resizable(False, False)
 root.title('Macro recorder')
 
-my_label = Label(root,text='Anything open')
-my_label.pack()
+show_open_file = Label(root,text='Anything open')
+show_open_file.place(x=10,y=172)
 
-button = Button(root, text='Open file', command=open_json, width=12).place(x=155,y=50)
-button_run = Button(root, text='Run', command=macro_play,width=12).place(x=155,y=90)
-button_generatemacro = Button(root, text='Record Macro', 
-                       command=lambda:[savemouse.main(),succesfully_message()],width=12).place(x=40,y=50) 
+button = Button(root, text='Open file', 
+         command=open_json, width=12).place(x=155,y=50)
+button_run = Button(root, text='Run', 
+             command=macro_play,width=12).place(x=155,y=90)
+button_generate_macro = Button(root, text='Record Macro', 
+                       command=lambda:[savemouse.main(),succesfully_message()],
+                       width=12).place(x=40,y=50) 
 
-button_savemacro = Button(root, text='Save file', command= save_file_dialog,width=12).place(x=40,y=90) 
+button_savemacro = Button(root, text='Save file', command= save_file_dialog
+                   ,width=12).place(x=40,y=90) 
 
 
 
