@@ -17,7 +17,7 @@ def save_file_dialog():
     # used to convert the elements of the list that are strings
     # to transform them into tuples within the JSON.
 
-    clicks = str(savemouse.new_list).replace("'", "")
+    clicks = str(savemouse.clicks_coordinates).replace("'", "")
     file_name = filedialog.asksaveasfile(initialdir=os.getcwd(),
                                          filetypes=(("Json File", "*.json"),),
                                          defaultextension=".json",
@@ -28,7 +28,7 @@ def save_file_dialog():
     else:
         file_name.write(clicks + '\n')
         # Cambiar nombre de variable por otra mas legible # Translate comment
-        file_name.write(str(savemouse.diff_list))
+        file_name.write(str(savemouse.time_between_clicks))
         file_name.close()
 
 # This function opens the file with the coordenates.

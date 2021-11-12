@@ -3,12 +3,10 @@ from pynput.mouse import Listener
 from pynput import mouse
 import time
 
-clicks_guardados = []
+saved_clicks = []
 time_each_click = []
 time_between_clicks = []
-tiempo_list = []
-diff_list = []
-new_list = []
+clicks_coordinates = []
 
 # With this function we clean the output string from Pyautogui.
 
@@ -17,15 +15,16 @@ def replace_and_add_item(items, old1, new1, old2, new2, old3, new3):
     new_item = items.replace(old1, new1)
     new_item = new_item.replace(old2, new2)
     new_item = new_item.replace(old3, new3)
-    new_list.append(new_item)
+    clicks_coordinates.append(new_item)
 
-# Con esta funcion detectamos y guardamos los clicks del mouse.
+# With this function we detect and save mouse clicks.
 
 
 def on_click(x, y, button, pressed):
 
-    # Si ponemos el mouse en la esquina superior de la pantalla el loop
-    # termina.
+   # If we put the mouse in the upper corner of the screen the loop
+   # ends.
+
     if pressed:
         if str(pyautogui.position()) == 'Point(x=0, y=0)':
             n = False
@@ -35,17 +34,17 @@ def on_click(x, y, button, pressed):
         return False
     else:
         time.sleep(0.1)
-        clicks_guardados.append(pyautogui.position())
-        tiempo_list.append(time.time())
+        saved_clicks.append(pyautogui.position())
+        time_each_click.append(time.time())
         print('A click was saved')
 
 
 def save_lists():
-    clicks = str(new_list).replace("'", "")
+    clicks = str(clicks_coordinates).replace("'", "")
     file_name = input('Choose the filename: ') + '.json'
     file_clicks = open(file_name, 'w+')
     file_clicks.write(clicks + '\n')
-    file_clicks.write(str(diff_list))
+    file_clicks.write(str(time_between_clicks))
     file_clicks.close()
 
 
@@ -61,13 +60,13 @@ def main():
             n = False
 
     #The for loop below is to generate a list with the time interval between clicks.
-    for i in range(1, len(tiempo_list)):
-        if tiempo_list[i] != tiempo_list[0]:
-            x = tiempo_list[i] - tiempo_list[i - 1]
-            diff_list.append(x)
-    diff_list.insert(0, 1) # This insert one initial second in the list.
+    for i in range(1, len(time_each_click)):
+        if time_each_click[i] != time_each_click[0]:
+            x = time_each_click[i] - time_each_click[i - 1]
+            time_between_clicks.append(x)
+    time_between_clicks.insert(0, 1) # This insert one initial second in the list.
 
-    for i in clicks_guardados:
+    for i in saved_clicks:
         replace_and_add_item(str(i), 'Point', '', 'x=', '', 'y=', '')
 
     print('The list has been proccessed succesfully')
