@@ -4,7 +4,7 @@ from tkinter import messagebox
 import os
 import pyautogui
 import time
-import save_mouse_movements as save_mouse
+import main as save_mouse
 
 
 def succesfully_message():
