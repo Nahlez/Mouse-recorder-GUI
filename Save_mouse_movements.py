@@ -64,7 +64,7 @@ def main():
         if time_each_click[i] != time_each_click[0]:
             x = time_each_click[i] - time_each_click[i - 1]
             time_between_clicks.append(x)
-    time_between_clicks.insert(0, 1) # This insert one initial second in the list.
+    time_between_clicks.insert(0, 3) # This insert 3  initial second in the list.
 
     for i in saved_clicks:
         replace_and_add_item(str(i), 'Point', '', 'x=', '', 'y=', '')
