@@ -5,10 +5,12 @@ import os
 import pyautogui
 import time
 import main as save_mouse
+from importlib import reload
+import platform
 
 
-def succesfully_message():
-    messagebox.showinfo('Info', 'The list has been proccessed succesfully')
+def successfully_message():
+    messagebox.showinfo('Info', 'The list has been proccessed successfully')
 
 # Save the macro
 
@@ -18,6 +20,7 @@ def save_file_dialog():
     # to transform them into tuples within the JSON.
 
     clicks = str(save_mouse.clicks_coordinates).replace("'", "")
+    time_clicks_str = str(save_mouse.time_between_clicks)
     file_name = filedialog.asksaveasfile(initialdir=os.getcwd(),
                                          filetypes=(("Json File", "*.json"),),
                                          defaultextension=".json",
@@ -27,11 +30,11 @@ def save_file_dialog():
 
     else:
         file_name.write(clicks + '\n')
-        # Cambiar nombre de variable por otra mas legible # Translate comment
-        file_name.write(str(save_mouse.time_between_clicks))
+        file_name.write(time_clicks_str)
         file_name.close()
+        reload(save_mouse)
 
-# This function opens the file with the coordenates.
+# This function opens the file with the coordinates.
 
 
 def open_json():
@@ -47,14 +50,14 @@ def open_json():
         show_open_file.config(text=os.path.basename(json_instructions))
         json_instructions_read = open(json_instructions, 'r')
         lines = json_instructions_read.readlines()
-        open_json.clicks_coordenates = eval(lines[0])
+        open_json.clicks_coordinates = eval(lines[0])
         open_json.time_clicks = eval(lines[1])
 
 
-#  Execute the coordenates.
+#  Execute the coordinates.
 
 def macro_play():
-    saved_clicks = open_json.clicks_coordenates
+    saved_clicks = open_json.clicks_coordinates
     time_between_clicks = open_json.time_clicks
 
     time.sleep(2)
@@ -71,8 +74,10 @@ root = Tk()
 root.geometry('300x200')
 root.resizable(False, False)
 root.title('Macro recorder')
-root.iconbitmap('mouse.ico')
-
+# Change icon for different systems.
+if platform.system() == "Windows":
+    root.iconbitmap('mouse.ico')
+ 
 show_open_file = Label(root, text='No open file')
 show_open_file.place(x=10, y=172)
 
@@ -85,11 +90,10 @@ button_run = Button(root, text='Run',
 button_generate_macro = Button(
     root,
     text='Record macro', command=lambda:
-        [save_mouse.main(), succesfully_message()],
+        [save_mouse.main(), successfully_message()],
         width=12).place(x=40, y=50)
 
 button_savemacro = Button(root, text='Save file',
                           command=save_file_dialog,
                           width=12).place(x=40, y=90)
-
 root.mainloop()
