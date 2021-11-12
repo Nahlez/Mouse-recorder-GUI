@@ -23,7 +23,7 @@ The script was tested on Windows and Ubuntu. Feel free to clone / fork the repos
 
 **Record macro**
 
-- Start the Mouse Recorder-GUI.py
+- Start mouse_recorder_GUI.py
 - Press Record macro (1)
 - Make the clicks you want to record.
 - To stop recording clicks ( Or the loop)  you have to click on the upper left corner (x = 0, y = 0)
